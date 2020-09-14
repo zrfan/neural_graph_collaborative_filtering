@@ -86,6 +86,7 @@ class Data(object):
             norm_adj_mat = sp.load_npz(self.path + '/s_norm_adj_mat.npz')
             mean_adj_mat = sp.load_npz(self.path + '/s_mean_adj_mat.npz')
             print('already load adj matrix', adj_mat.shape, time() - t1)
+            print("adj_mat=", adj_mat[0])
 
         except Exception:
             adj_mat, norm_adj_mat, mean_adj_mat = self.create_adj_mat()
@@ -98,11 +99,12 @@ class Data(object):
         t1 = time()
         adj_mat = sp.dok_matrix((self.n_users + self.n_items, self.n_users + self.n_items), dtype=np.float32)
         adj_mat = adj_mat.tolil()  # convert matrix to list of list format
+        print("list of list adj_mat=", adj_mat[:10])
         R = self.R.tolil()
 
         adj_mat[:self.n_users, self.n_users:] = R
         adj_mat[self.n_users:, :self.n_users] = R.T
-        adj_mat = adj_mat.todok()
+        adj_mat = adj_mat.todok()  # convert matrix to dictionary of keys format
         print('already create adjacency matrix', adj_mat.shape, time() - t1)
 
         t2 = time()
