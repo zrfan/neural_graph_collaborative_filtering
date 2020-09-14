@@ -4,8 +4,11 @@ import os
 import sys
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
-from utility.helper import *
-from utility.batch_test import *
+from .utility.helper import *
+from .utility.batch_test import *
+import numpy as np
+import time
+import scipy.sparse as sp
 
 class NGCF(object):
     def __init__(self, data_config, pretrain_data):
@@ -271,17 +274,17 @@ class NGCF(object):
 
         regularizer = tf.nn.l2_loss(users) + tf.nn.l2_loss(pos_items) + tf.nn.l2_loss(neg_items)
         regularizer = regularizer/self.batch_size
-        
+
         # In the first version, we implement the bpr loss via the following codes:
         # We report the performance in our paper using this implementation.
         maxi = tf.log(tf.nn.sigmoid(pos_scores - neg_scores))
         mf_loss = tf.negative(tf.reduce_mean(maxi))
-        
+
         ## In the second version, we implement the bpr loss via the following codes to avoid 'NAN' loss during training:
         ## However, it will change the training performance and training performance.
         ## Please retrain the model and do a grid search for the best experimental setting.
         # mf_loss = tf.reduce_sum(tf.nn.softplus(-(pos_scores - neg_scores)))
-        
+
 
         emb_loss = self.decay * regularizer
 
@@ -458,10 +461,10 @@ if __name__ == '__main__':
         for idx in range(n_batch):
             users, pos_items, neg_items = data_generator.sample()
             _, batch_loss, batch_mf_loss, batch_emb_loss, batch_reg_loss = sess.run([model.opt, model.loss, model.mf_loss, model.emb_loss, model.reg_loss],
-                               feed_dict={model.users: users, model.pos_items: pos_items,
-                                          model.node_dropout: eval(args.node_dropout),
-                                          model.mess_dropout: eval(args.mess_dropout),
-                                          model.neg_items: neg_items})
+                                                                                    feed_dict={model.users: users, model.pos_items: pos_items,
+                                                                                               model.node_dropout: eval(args.node_dropout),
+                                                                                               model.mess_dropout: eval(args.mess_dropout),
+                                                                                               model.neg_items: neg_items})
             loss += batch_loss
             mf_loss += batch_mf_loss
             emb_loss += batch_emb_loss

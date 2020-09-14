@@ -51,7 +51,7 @@ class Data(object):
 
         self.print_statistics()
 
-        self.R = sp.dok_matrix((self.n_users, self.n_items), dtype=np.float32)
+        self.R = sp.dok_matrix((self.n_users, self.n_items), dtype=np.float32)  # dictionary of keys based sparse matrix, an efficient structure for constructing sparse matrix incrementally
 
         self.train_items, self.test_set = {}, {}
         with open(train_file) as f_train:
@@ -97,7 +97,7 @@ class Data(object):
     def create_adj_mat(self):
         t1 = time()
         adj_mat = sp.dok_matrix((self.n_users + self.n_items, self.n_users + self.n_items), dtype=np.float32)
-        adj_mat = adj_mat.tolil()
+        adj_mat = adj_mat.tolil()  # convert matrix to list of list format
         R = self.R.tolil()
 
         adj_mat[:self.n_users, self.n_users:] = R
