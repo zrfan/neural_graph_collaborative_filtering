@@ -65,7 +65,7 @@ class Data(object):
                     l = l.strip('\n')
                     items = [int(i) for i in l.split(' ')]
                     uid, train_items = items[0], items[1:]
-                    print("uid=", uid, " items=", train_items)
+                    # print("uid=", uid, " items=", train_items)
                     for i in train_items:
                         self.R[uid, i] = 1.
                         # self.R[uid][i] = 1
