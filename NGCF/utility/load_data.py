@@ -108,7 +108,7 @@ class Data(object):
         adj_mat = adj_mat.tolil()  # convert matrix to list of list format
         print("list of list adj_mat=", adj_mat)
         R = self.R.tolil()  # 用户-物品交互矩阵
-        print("R =", len(R.keys()))
+        print("R =", R[:2, :2])
 
         adj_mat[:self.n_users, self.n_users:] = R
         adj_mat[self.n_users:, :self.n_users] = R.T
