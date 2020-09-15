@@ -65,10 +65,8 @@ class Data(object):
                     l = l.strip('\n')
                     items = [int(i) for i in l.split(' ')]
                     uid, train_items = items[0], items[1:]
-                    # print("uid=", uid, " items=", train_items)
                     for i in train_items:
                         self.R[uid, i] = 1.
-                        # self.R[uid][i] = 1
 
                     self.train_items[uid] = train_items
 
@@ -110,7 +108,7 @@ class Data(object):
         adj_mat = adj_mat.tolil()  # convert matrix to list of list format
         print("list of list adj_mat=", adj_mat)
         R = self.R.tolil()  # 用户-物品交互矩阵
-        print("R =", R[:1])
+        print("R =", len(R))
 
         adj_mat[:self.n_users, self.n_users:] = R
         adj_mat[self.n_users:, :self.n_users] = R.T
