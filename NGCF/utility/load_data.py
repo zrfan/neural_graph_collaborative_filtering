@@ -33,7 +33,9 @@ class Data(object):
                     uid = int(l[0])
                     self.exist_users.append(uid)
                     self.n_items = max(self.n_items, max(items))
+                    self.min_item = min(self.min_item, min(items))
                     self.n_users = max(self.n_users, uid)
+                    self.min_user = min(self.min_user, uid)
                     self.n_train += len(items)
 
         with open(test_file) as f:
@@ -45,6 +47,7 @@ class Data(object):
                     except Exception:
                         continue
                     self.n_items = max(self.n_items, max(items))
+                    self.min_item = min(self.min_item, min(items))
                     self.n_test += len(items)
         self.n_items += 1
         self.n_users += 1
@@ -78,8 +81,9 @@ class Data(object):
 
                     uid, test_items = items[0], items[1:]
                     self.test_set[uid] = test_items
-        print("train items=", self.train_items)
-        print("Test set=", self.test_set)
+        # print("train items=", self.train_items)
+        # print("Test set=", self.test_set)
+        print("min item=", self.min_item, "min user=", self.min_user)
 
     def get_adj_mat(self):
         try:
