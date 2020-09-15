@@ -10,6 +10,13 @@ import random as rd
 import scipy.sparse as sp
 from time import time
 
+def getIds(path, content):
+    if "cf" not in path:
+        return content.strip('\n').split(' ')
+    else:
+        l = content.strip('\n').split(',')
+        return [l[0]] + l[1].split('#')
+
 class Data(object):
     def __init__(self, path, batch_size):
         self.path = path
@@ -29,7 +36,7 @@ class Data(object):
         with open(train_file) as f:
             for l in f.readlines():
                 if len(l) > 0:
-                    l = l.strip('\n').split(' ')
+                    l = getIds(path, l)
                     items = [int(i) for i in l[1:]]
                     uid = int(l[0])
                     self.exist_users.append(uid)
