@@ -83,8 +83,8 @@ class Data(object):
                     uid, test_items = items[0], items[1:]
                     self.test_set[uid] = test_items
         # print("train items=", self.train_items)
-        for k in self.train_items.keys():
-            print("uid=", k, "items=", self.train_items.get(k))
+        # for k in self.train_items.keys():
+        #     print("uid=", k, "items=", self.train_items.get(k))
         # print("Test set=", self.test_set)
         print("min item=", self.min_item, "min user=", self.min_user)
 
@@ -108,8 +108,9 @@ class Data(object):
         t1 = time()
         adj_mat = sp.dok_matrix((self.n_users + self.n_items, self.n_users + self.n_items), dtype=np.float32)
         adj_mat = adj_mat.tolil()  # convert matrix to list of list format
-        print("list of list adj_mat=", adj_mat[:10])
-        R = self.R.tolil()
+        print("list of list adj_mat=", adj_mat)
+        R = self.R.tolil()  # 用户-物品交互矩阵
+        print("R =", R)
 
         adj_mat[:self.n_users, self.n_users:] = R
         adj_mat[self.n_users:, :self.n_users] = R.T
