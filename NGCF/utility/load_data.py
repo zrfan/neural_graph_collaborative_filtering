@@ -20,6 +20,7 @@ class Data(object):
 
         #get number of users and items
         self.n_users, self.n_items = 0, 0
+        self.min_user, self.min_item = 100000, 100000
         self.n_train, self.n_test = 0, 0
         self.neg_pools = {}
 
