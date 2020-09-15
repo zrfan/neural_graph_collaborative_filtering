@@ -83,6 +83,8 @@ class Data(object):
                     uid, test_items = items[0], items[1:]
                     self.test_set[uid] = test_items
         # print("train items=", self.train_items)
+        for k in self.train_items.keys():
+            print("uid=", k, "items=", self.train_items.get(k))
         # print("Test set=", self.test_set)
         print("min item=", self.min_item, "min user=", self.min_user)
 
