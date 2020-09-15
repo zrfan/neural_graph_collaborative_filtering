@@ -78,6 +78,8 @@ class Data(object):
 
                     uid, test_items = items[0], items[1:]
                     self.test_set[uid] = test_items
+        print("train items=", self.train_items)
+        print("Test set=", self.test_set)
 
     def get_adj_mat(self):
         try:
@@ -86,7 +88,7 @@ class Data(object):
             norm_adj_mat = sp.load_npz(self.path + '/s_norm_adj_mat.npz')
             mean_adj_mat = sp.load_npz(self.path + '/s_mean_adj_mat.npz')
             print('already load adj matrix', adj_mat.shape, time() - t1)
-            print("adj_mat=", adj_mat)
+            print("get adj_mat=", adj_mat)
 
         except Exception:
             adj_mat, norm_adj_mat, mean_adj_mat = self.create_adj_mat()
