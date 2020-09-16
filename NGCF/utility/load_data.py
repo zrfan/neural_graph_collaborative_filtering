@@ -75,8 +75,8 @@ class Data(object):
             with open(test_file) as f_test:
                 for l in f_train.readlines():
                     if len(l) == 0: break
-                    l = l.strip('\n')
-                    items = [int(i) for i in l.split(' ')]
+                    l = getIds(path, l)
+                    items = [int(i) for i in l]
                     uid, train_items = items[0], items[1:]
                     for i in train_items:
                         self.R[uid, i] = 1.
