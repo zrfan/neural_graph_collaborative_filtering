@@ -12,7 +12,7 @@ from time import time
 
 def getIds(path, content):
     if "cf" not in path:
-        return content.strip('\n').split(' ')
+        return content.strip('\n')[1:-1].split(' ')
     else:
         l = content.strip('\n').split(',')
         return [l[0]] + l[1].split('#')
