@@ -16,7 +16,7 @@ def getIds(path, content):
     else:
 
         l = content.strip('\n')[1:-1].split(',')
-        l = [l[0]] + l[1].split('#')
+        # l = [l[0]] + l[1].split('#')
         try:
             l = [int(i) for i in l]
         except:
