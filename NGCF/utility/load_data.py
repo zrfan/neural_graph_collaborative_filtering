@@ -14,6 +14,8 @@ def getIds(path, content):
     if "cf" not in path:
         return content.strip('\n').split(' ')
     else:
+        print("content=", content)
+        print("content=", content.strip('\n')[1:-1])
         l = content.strip('\n')[1:-1].split(',')
         return [l[0]] + l[1].split('#')
 
